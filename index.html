@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .points {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .perform-tasks {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .task {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .task-image {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+        
+        .task-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .task-info {
+            flex-grow: 1;
+        }
+        
+        .task-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .task-points {
+            color: #4CAF50;
+        }
+        
+        .check-button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .bottom-bar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .icon svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-image">
+            <img src="/api/placeholder/600/200" alt="Profile Image">
+        </div>
+        <div class="points">0 Points</div>
+        <div class="perform-tasks">Perform tasks</div>
+        <div id="taskList">
+            <!-- Tasks will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <div class="bottom-bar-item">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </div>
+            <span>Home</span>
+        </div>
+        <div class="bottom-bar-item">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+            </div>
+            <span>Ranking</span>
+        </div>
+        <div class="bottom-bar-item">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </div>
+            <span>Friend</span>
+        </div>
+    </div>
+
+    <script>
+        const tasks = [{
+            id: 1,
+            title: 'Subscribe to YouTube',
+            points: 200,
+            link: 'https://youtube.com',
+            image: 'https://images.app.goo.gl/9y65JzL1Zc5YoDzY7'
+        }, {
+            id: 2,
+            title: 'Follow our Telegram',
+            points: 185,
+            link: 'https://telegram.org',
+            image: 'https://s8.uupload.ir/files/img_20240818_161518_177_yk0z.jpg'
+        }, {
+            id: 3,
+            title: 'Follow us X',
+            points: 150,
+            link: 'https://twitter.com',
+            image: 'https://s8.uupload.ir/files/%C3%9B%C2%B2%C3%9B%C2%B1_%C3%9B%C2%B2%C3%9B%C2%B4_%C3%9B%C2%B3%C3%9B%C2%B6_twitter-brand-new-logo-3-d-with-new-x-shaped-graphic-of-the-world-s-most-popular-social-media-free-png_4dwl.png'
+        }, {
+            id: 4,
+            title: 'Follow us Instagram',
+            points: 100,
+            link: 'https://instagram.com',
+            image: 'https://s8.uupload.ir/files/jowhareh_galleries_5_poster_24e41fb3-da35-4fe1-a45e-94f2ee6b01f0_g4su.png'
+        }, {
+            id: 5,
+            title: 'Watch video',
+            points: 50,
+            link: 'https://youtube.com',
+            image: 'https://s8.uupload.ir/files/%C3%9B%C2%B2%C3%9B%C2%B1_%C3%9B%C2%B5%C3%9B%C2%B7_%C3%9B%C2%B1%C3%9B%C2%B8_logo-icon-3d-social-media-in-modern-free-png_xxs0.png'
+        }];
+
+        let points = 0;
+        const pointsElement = document.querySelector('.points');
+        const taskList = document.getElementById('taskList');
+
+        function updatePoints() {
+            pointsElement.textContent = `${points} Points`;
+        }
+
+        function createTaskElement(task) {
+            const taskElement = document.createElement('div');
+            taskElement.className = 'task';
+            taskElement.innerHTML = `
+                <div class="task-image">
+                    <img src="${task.image}" alt="${task.title} Icon">
+                </div>
+                <div class="task-info">
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-points">+${task.points}</div>
+                </div>
+                <button class="check-button" data-task-id="${task.id}">Check</button>
+            `;
+            return taskElement;
+        }
+
+        function renderTasks() {
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const taskElement = createTaskElement(task);
+                taskList.appendChild(taskElement);
+            });
+        }
+
+        function handleTaskClick(event) {
+            if (event.target.classList.contains('check-button')) {
+                const taskId = parseInt(event.target.getAttribute('data-task-id'));
+                const task = tasks.find(t => t.id === taskId);
+                if (task) {
+                    window.open(task.link, '_blank');
+                    event.target.style.display = 'none';
+                    setTimeout(() => {
+                        event.target.style.display = 'block';
+                    }, 30 * 60 * 1000); // 30 minutes
+
+                    // Simulating the check after 30 minutes (for demonstration, we're using 30 minutes)
+                    setTimeout(() => {
+                        points += task.points;
+                        updatePoints();
+                        tasks.splice(tasks.findIndex(t => t.id === taskId), 1);
+                        renderTasks();
+                    }, 3000); // Change this to 30 * 60 * 1000 for actual 30 minutes delay
+                }
+            }
+        }
+
+        taskList.addEventListener('click', handleTaskClick);
+
+        renderTasks();
+        updatePoints();
+    </script>
+</body>
+
+</html>
